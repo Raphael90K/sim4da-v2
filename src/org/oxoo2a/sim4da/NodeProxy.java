@@ -16,15 +16,10 @@ public class NodeProxy {
         }
     }
 
-    public Message receive () {
+    public Message receive () throws InterruptedException {
         synchronized (messages) {
             while (messages.isEmpty()) {
-                try {
                     messages.wait();
-                } catch (InterruptedException e) {
-                    // TODO Signal associated NetworkConnection that the simulation is shutting down
-                    e.printStackTrace();
-                }
             }
             int candidate_index = SimulationBehavior.selectMessageInQueue(messages.size());
             Message candidate = messages.remove(candidate_index).message;

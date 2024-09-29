@@ -65,7 +65,7 @@ public class Network {
         }
     }
 
-    public Message receive(NetworkConnection receiver) {
+    public Message receive(NetworkConnection receiver) throws InterruptedException {
         Node n = nodes.get(receiver.NodeName());
         Message m = n.np.receive();
         return m;
