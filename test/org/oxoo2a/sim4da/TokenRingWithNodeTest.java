@@ -17,7 +17,11 @@ class TokenRingWithNodeTest {
             }
             int loop_counter = 0;
             while (true) {
-                m = receive();
+                try {
+                    m = receive();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
                 System.out.println(NodeName() + " received message from " + m.queryHeader("sender"));
                 loop_counter++;
                 String value = m.query("token");

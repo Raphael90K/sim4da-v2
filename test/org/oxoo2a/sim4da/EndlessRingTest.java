@@ -16,7 +16,11 @@ class EndlessRingTest {
                 sendBlindly(m, next_node);
             }
             while (true) {
-                m = receive();
+                try {
+                    m = receive();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
                 System.out.println(NodeName() + " received message from " + m.queryHeader("sender"));
                 int v = m.queryInteger("token");
                 System.out.println(NodeName() + " received token " + v);
